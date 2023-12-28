@@ -2,7 +2,7 @@
 
 # 生成随机端口号和密码
 random_port=$((1024 + RANDOM % (9999 - 1024 + 1)))
-random_password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 24 ; echo '')
+random_password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16 ; echo '')
 
 # 安装依赖
 yum install -y yum-utils epel-release && \
