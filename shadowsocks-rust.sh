@@ -2,7 +2,7 @@
 
 # 生成随机端口号和密码
 random_port=$((1024 + RANDOM % (9999 - 1024 + 1)))
-random_password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16 ; echo '')
+random_password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 24 ; echo '')
 
 # 安装依赖
 yum install -y yum-utils epel-release && \
@@ -19,17 +19,17 @@ wait
 yum install -y shadowsocks-rust
 
 # 定义配置文件路径
-shadowsocks_rust_config="/etc/shadowsocks-rust/"
+shadowsocks_rust_config="/etc/shadowsocks-rust/config.json"
 
 # 创建目录和配置文件
-mkdir -p “$shadowsocks_rust_config" && touch "$shadowsocks_rust_config"
+mkdir -p "$(dirname "$shadowsocks_rust_config")" && touch "$shadowsocks_rust_config"
 
 # 修改配置文件
-cat > "$shadowsocks_rust_config" <<-'EOF'
+cat > "$shadowsocks_rust_config" <<EOF
 {
     "server": "0.0.0.0",
-    "server_port": '"$random_port"',
-    "password": '"$random_password"',
+    "server_port": $random_port,
+    "password": "$random_password",
     "timeout": 300,
     "method": "aes-256-gcm",
     "fast_open": false,
