@@ -19,10 +19,12 @@ wait
 yum install -y shadowsocks-rust
 
 # 定义配置文件路径
-shadowsocks_rust_config="/etc/shadowsocks-rust/config.json"
+shadowsocks_rust_config="/etc/shadowsocks/shadowsocks-rust-config.json"
 
-# 创建目录和配置文件
-mkdir -p "$(dirname "$shadowsocks_rust_config")" && touch "$shadowsocks_rust_config"
+if [ ! -f "$shadowsocks_rust_config" ]; then
+    # 创建目录和配置文件
+    mkdir -p "$(dirname "$shadowsocks_rust_config")" && touch "$shadowsocks_rust_config"
+fi
 
 # 修改配置文件
 cat > "$shadowsocks_rust_config" <<EOF
