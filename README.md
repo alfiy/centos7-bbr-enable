@@ -19,6 +19,3 @@ sudo chmod +x tcp.sh
 shadowsocks-rust.sh
 
 
-## openvpn 安装脚本
-
-openvpn.sh
